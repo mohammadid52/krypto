@@ -74,7 +74,6 @@ export const TransactionProvider = ({ children }) => {
 
       const transactionContract = getEthereumContract();
       const { addressTo, amount, keyword, message } = formData;
-      console.log(connectedAccount);
       const parsedAmount = ethers.utils.parseEther(amount);
       await ethereum.request({
         method: "eth_sendTransaction",
@@ -96,10 +95,9 @@ export const TransactionProvider = ({ children }) => {
       );
 
       setIsLoading(true);
-      console.log("Loading - ", transcationHash.hash);
+
       await transactionHash.wait();
       setIsLoading(false);
-      console.log("Success - ", transcationHash.hash);
 
       const transactionCount = await transactionContract.getTransactionCount();
       setTransactionCount(transactionCount.toNumber());
